@@ -1,16 +1,20 @@
 @page "/fetchproducts"
+@page "/products"
 
 @using FullStackApp.Shared.Models
 
+<PageTitle>InventoryHub</PageTitle>
+
 @*
     FetchProducts.razor
-    - Uses a dedicated ProductService (ClientApp.Services.ProductService) to fetch/cached products
-    - The component stays thin: it requests data and renders it, while ProductService handles HTTP, timeouts and caching.
+    - Uses the dedicated ProductService to fetch data from /api/productlist.
+    - Renders the actual product records returned by the server, including the nested Category object.
 *@
 
 @inject ClientApp.Services.IProductService ProductService
 
 <h3>Product List</h3>
+
 @if (loading)
 {
     <p>Loading products...</p>
@@ -19,41 +23,44 @@ else if (!string.IsNullOrEmpty(errorMessage))
 {
     <div class="alert alert-danger">@errorMessage</div>
 }
-else if (products != null && products.Length > 0)
+else if (products is { Length: > 0 })
 {
-    <ul>
+    <div class="list-group">
         @foreach (var product in products)
         {
-            <li>@product.Name - $@product.Price (@product.Stock in stock) - Category: @product.Category?.Name</li>
+            <div class="list-group-item">
+                <h5>@product.Name</h5>
+                <p class="mb-1">Id: @product.Id</p>
+                <p class="mb-1">Price: $@product.Price</p>
+                <p class="mb-1">Stock: @product.Stock</p>
+                <p class="mb-0">Category: @(product.Category?.Name ?? "N/A")</p>
+            </div>
         }
-    </ul>
+    </div>
 }
 else
 {
-    <p>No products found.</p>
+    <p>No products found from /api/productlist.</p>
 }
 
 @code {
-    // Local component state
-    private Product[]? products;
+    private Product[] products = Array.Empty<Product>();
     private bool loading = true;
     private string? errorMessage;
 
-    // Run once when the component initializes.
     protected override async Task OnInitializedAsync()
     {
         try
         {
             products = await ProductService.GetProductsAsync();
-            if (products == null || products.Length == 0)
+            if (products.Length == 0)
             {
-                errorMessage = "No products returned from the server.";
+                errorMessage = "The API returned no product elements.";
             }
         }
         catch (Exception ex)
         {
-            // ProductService already logs low-level details; show friendly message here.
-            errorMessage = "Failed to load products. See console for details.";
+            errorMessage = "Failed to load products from /api/productlist.";
             Console.WriteLine($"FetchProducts: unexpected error: {ex.Message}");
             products = Array.Empty<Product>();
         }

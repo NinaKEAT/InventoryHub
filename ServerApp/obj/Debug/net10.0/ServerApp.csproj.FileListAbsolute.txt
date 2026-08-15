@@ -33,3 +33,4 @@
 /home/msi/Documents/PRACTICE/COURSERA/FullStackApp/ServerApp/obj/Debug/net10.0/ref/ServerApp.dll
 /home/msi/Documents/PRACTICE/COURSERA/FullStackApp/ServerApp/bin/Debug/net10.0/FullStackApp.Shared.dll
 /home/msi/Documents/PRACTICE/COURSERA/FullStackApp/ServerApp/bin/Debug/net10.0/FullStackApp.Shared.pdb
+/home/msi/Documents/PRACTICE/COURSERA/FullStackApp/ServerApp/obj/Debug/net10.0/ServerApp.sourcelink.json

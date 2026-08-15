@@ -17,30 +17,24 @@ namespace ServerApp.Services
             _cache = cache;
         }
 
-        public Task<Product[]> GetProductsAsync(CancellationToken cancellationToken = default)
+        public async Task<Product[]> GetProductsAsync(CancellationToken cancellationToken = default)
         {
-            if (_cache.TryGetValue(CacheKey, out Product[]? cached))
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var cached = await _cache.GetOrCreateAsync(CacheKey, entry =>
             {
-                // cached may be null if something removed it; ensure non-nullable return
-                return Task.FromResult(cached ?? Array.Empty<Product>());
-            }
+                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
+                entry.SlidingExpiration = TimeSpan.FromMinutes(1);
 
-            // Construct a static list to mimic a data store
-            var products = new Product[]
-            {
-                new Product { Id = 1, Name = "Laptop", Price = 1200.50, Stock = 25, Category = new Category { Id = 101, Name = "Electronics" } },
-                new Product { Id = 2, Name = "Headphones", Price = 50.00, Stock = 100, Category = new Category { Id = 102, Name = "Accessories" } }
-            };
+                return Task.FromResult(new Product[]
+                {
+                    new Product { Id = 1, Name = "Laptop", Price = 1200.50, Stock = 25, Category = new Category { Id = 101, Name = "Electronics" } },
+                    new Product { Id = 2, Name = "Headphones", Price = 50.00, Stock = 100, Category = new Category { Id = 102, Name = "Accessories" } }
+                });
+            }).ConfigureAwait(false);
 
-            var cacheOptions = new MemoryCacheEntryOptions
-            {
-                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5),
-                SlidingExpiration = TimeSpan.FromMinutes(1)
-            };
-
-            _cache.Set(CacheKey, products, cacheOptions);
-
-            return Task.FromResult(products);
+            cancellationToken.ThrowIfCancellationRequested();
+            return cached ?? Array.Empty<Product>();
         }
     }
 }

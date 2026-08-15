@@ -9,3 +9,4 @@
 /home/msi/Documents/PRACTICE/COURSERA/FullStackApp/Shared/obj/Debug/net10.0/refint/FullStackApp.Shared.dll
 /home/msi/Documents/PRACTICE/COURSERA/FullStackApp/Shared/obj/Debug/net10.0/FullStackApp.Shared.pdb
 /home/msi/Documents/PRACTICE/COURSERA/FullStackApp/Shared/obj/Debug/net10.0/ref/FullStackApp.Shared.dll
+/home/msi/Documents/PRACTICE/COURSERA/FullStackApp/Shared/obj/Debug/net10.0/FullStackApp.Shared.sourcelink.json
