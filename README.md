@@ -1,28 +1,29 @@
 # InventoryHub
 
-A full-stack .NET solution for managing inventory, composed of a client application, a server-side API, and a shared library of common models/contracts.
+A full-stack inventory/product management application built with **ASP.NET Core** (backend) and **Blazor WebAssembly** (frontend), organized as a multi-project .NET solution.
 
-> **Status:** Early scaffold. The solution currently consists of the base `ClientApp`, `ServerApp`, and `Shared` projects; features and endpoints are still being built out. This README will be expanded as functionality is added.
-
-## Solution Structure
+## Project Structure
 
 ```
 InventoryHub/
-├── ClientApp/                  # Front-end application (ClientApp.csproj)
-├── ServerApp/                  # Back-end API (ServerApp.csproj)
-├── Shared/                     # Shared models/contracts used by both Client and Server
-└── FullStackSolution.slnx      # Solution file linking ClientApp and ServerApp
+├── ClientApp/                  # Blazor WebAssembly frontend
+├── ServerApp/                  # ASP.NET Core backend API
+├── Shared/                     # Shared models/DTOs used by both client and server
+└── FullStackSolution.slnx      # Solution file referencing ClientApp and ServerApp
 ```
 
-- **ClientApp** — the front-end project responsible for the user interface.
-- **ServerApp** — the back-end project responsible for exposing the API and business logic.
-- **Shared** — a class library holding types (e.g., models/DTOs) shared between the client and server so both sides stay in sync.
+## Tech Stack
+
+- **Backend (`ServerApp`)** — ASP.NET Core Web API (.NET)
+- **Frontend (`ClientApp`)** — Blazor WebAssembly
+- **Shared (`Shared`)** — Common models/contracts referenced by both projects, to keep client and server DTOs in sync
 
 ## Getting Started
 
 ### Prerequisites
 
-- [.NET SDK](https://dotnet.microsoft.com/download) (latest version recommended)
+- [.NET SDK](https://dotnet.microsoft.com/download) (matching the version targeted by `ClientApp.csproj` / `ServerApp.csproj`)
+- A code editor such as Visual Studio, VS Code, or JetBrains Rider
 
 ### Clone and build
 
@@ -33,33 +34,22 @@ dotnet restore FullStackSolution.slnx
 dotnet build FullStackSolution.slnx
 ```
 
-### Run the server
+### Run the app
 
+**Backend:**
 ```bash
 cd ServerApp
 dotnet run
 ```
 
-### Run the client
-
-In a separate terminal:
-
+**Frontend (in a separate terminal):**
 ```bash
 cd ClientApp
 dotnet run
 ```
 
-Check each project's launch settings (`Properties/launchSettings.json`) for the exact local URLs once available.
-
-## Roadmap
-
-- [ ] Define inventory data model(s) in `Shared`
-- [ ] Implement CRUD API endpoints in `ServerApp`
-- [ ] Build inventory UI in `ClientApp`
-- [ ] Add validation and error handling
-- [ ] Add authentication (if required)
-- [ ] Add automated tests
+Once both are running, open the ClientApp URL shown in the terminal to use the app; it will call the ServerApp API in the background.
 
 ## Development Notes
 
-This project is being developed with the assistance of GitHub Copilot. This section will be updated with a summary of how Copilot contributed to each part of the implementation (scaffolding, endpoint generation, debugging, validation, etc.) as development progresses.
+This project is being developed with the assistance of GitHub Copilot, which is helping scaffold the client/server/shared project structure, generate CRUD endpoints and Blazor components, wire up client-server communication (HttpClient/DTOs), and debug build and integration issues as the app is built out.
