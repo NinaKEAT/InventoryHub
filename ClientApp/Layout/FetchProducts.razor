@@ -1,0 +1,66 @@
+@page "/fetchproducts"
+
+@using FullStackApp.Shared.Models
+
+@*
+    FetchProducts.razor
+    - Uses a dedicated ProductService (ClientApp.Services.ProductService) to fetch/cached products
+    - The component stays thin: it requests data and renders it, while ProductService handles HTTP, timeouts and caching.
+*@
+
+@inject ClientApp.Services.IProductService ProductService
+
+<h3>Product List</h3>
+@if (loading)
+{
+    <p>Loading products...</p>
+}
+else if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">@errorMessage</div>
+}
+else if (products != null && products.Length > 0)
+{
+    <ul>
+        @foreach (var product in products)
+        {
+            <li>@product.Name - $@product.Price (@product.Stock in stock) - Category: @product.Category?.Name</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No products found.</p>
+}
+
+@code {
+    // Local component state
+    private Product[]? products;
+    private bool loading = true;
+    private string? errorMessage;
+
+    // Run once when the component initializes.
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            products = await ProductService.GetProductsAsync();
+            if (products == null || products.Length == 0)
+            {
+                errorMessage = "No products returned from the server.";
+            }
+        }
+        catch (Exception ex)
+        {
+            // ProductService already logs low-level details; show friendly message here.
+            errorMessage = "Failed to load products. See console for details.";
+            Console.WriteLine($"FetchProducts: unexpected error: {ex.Message}");
+            products = Array.Empty<Product>();
+        }
+        finally
+        {
+            loading = false;
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+}

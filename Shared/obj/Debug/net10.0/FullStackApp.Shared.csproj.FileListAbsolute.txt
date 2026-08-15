@@ -1,0 +1,11 @@
+/home/msi/Documents/PRACTICE/COURSERA/FullStackApp/Shared/bin/Debug/net10.0/FullStackApp.Shared.deps.json
+/home/msi/Documents/PRACTICE/COURSERA/FullStackApp/Shared/bin/Debug/net10.0/FullStackApp.Shared.dll
+/home/msi/Documents/PRACTICE/COURSERA/FullStackApp/Shared/bin/Debug/net10.0/FullStackApp.Shared.pdb
+/home/msi/Documents/PRACTICE/COURSERA/FullStackApp/Shared/obj/Debug/net10.0/FullStackApp.Shared.GeneratedMSBuildEditorConfig.editorconfig
+/home/msi/Documents/PRACTICE/COURSERA/FullStackApp/Shared/obj/Debug/net10.0/FullStackApp.Shared.AssemblyInfoInputs.cache
+/home/msi/Documents/PRACTICE/COURSERA/FullStackApp/Shared/obj/Debug/net10.0/FullStackApp.Shared.AssemblyInfo.cs
+/home/msi/Documents/PRACTICE/COURSERA/FullStackApp/Shared/obj/Debug/net10.0/FullStackApp.Shared.csproj.CoreCompileInputs.cache
+/home/msi/Documents/PRACTICE/COURSERA/FullStackApp/Shared/obj/Debug/net10.0/FullStackApp.Shared.dll
+/home/msi/Documents/PRACTICE/COURSERA/FullStackApp/Shared/obj/Debug/net10.0/refint/FullStackApp.Shared.dll
+/home/msi/Documents/PRACTICE/COURSERA/FullStackApp/Shared/obj/Debug/net10.0/FullStackApp.Shared.pdb
+/home/msi/Documents/PRACTICE/COURSERA/FullStackApp/Shared/obj/Debug/net10.0/ref/FullStackApp.Shared.dll
